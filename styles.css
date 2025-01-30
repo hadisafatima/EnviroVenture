@@ -1,0 +1,47 @@
+/* Styles for Title Page */
+#titlePage {
+    background-color: #1f2937;
+    color: white;
+}
+
+/* Styles for Levels Page */
+#levelsPage {
+    background-color: #1f2937;
+    color: white;
+}
+
+.inactiveLevels{  
+    background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+    color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+
+
+@keyframes slide-in-from-right {
+    0% {
+      transform: translateX(340%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(238%);
+      opacity: 1;
+    }
+}
+
+@keyframes slide-out-to-right {
+    0% {
+        transform: translateX(238%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(340%);
+        opacity: 1;
+      }
+}
+
+.animate-slide-in-from-right {
+    animation: slide-in-from-right 1s ease-out forwards;
+}
+
+.animate-slide-out-to-right{
+    animation: slide-out-to-right 1s ease-out backwards;
+}

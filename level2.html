@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2: Urban Waste Cleanup - EnviroVenture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-900 flex items-center justify-center h-screen overflow-hidden">
+    <canvas id="three-canvas" class="w-full h-full"></canvas>
+
+    <!-- exit button -->
+    <button onclick="window.location.href = 'levels.html'" class="fixed top-4 left-4 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Exit</button>
+    <h2 class="text-3xl font-bold text-red-700 fixed top-2 left-20 bg-opacity-50 p-2 rounded-lg">Level 2: Urban Waste Cleanup</h2>
+
+    <!-- progress bar -->
+    <div class="fixed top-4 right-4 flex items-center space-x-4">
+        <!-- Label -->
+        <p class="text-black text-sm font-medium">Level Progress Measure:</p>
+        <!-- Progress Bar -->
+        <div class="w-48 bg-gray-800 rounded-full overflow-hidden border border-gray-600">
+            <div id="progressBar2" class="h-2 w-1/3 transition-all duration-300"></div>
+        </div>
+    </div>
+
+    <!-- coins bar -->
+    <div class="fixed top-10 right-4 flex items-center space-x-4">
+        <!-- Label -->
+        <p class="text-yellow-500 text-2xl font-medium"><i class="fa-solid fa-coins"></i></p>
+        <!-- Progress Bar -->
+        <div class="w-10 h-10 bg-gray-800 text-yellow-500 text-xl font-bold rounded-full overflow-hidden border border-gray-600">
+            <div id="coinsBar2" class="h-2 w-1/3 flex mx-3 mt-1 justify-center">0</div>
+        </div>
+    </div>
+
+    <!-- objects -->
+    <div id="message-box" class="hidden fixed top-20 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-80 text-white p-2 rounded-md"></div>
+
+    <!-- Selection Box -->
+    <div id="selection-box" class="hidden fixed top-1/3 left-1/2 transform -translate-x-1/2 text-black bg-white/60 p-5 border-2 border-gray-600 rounded-lg">
+        <p id="selection-text"></p>
+        <input type="text" id="choice-input" class="border p-2 rounded-md bg-gray-800 font-bold text-gray-200" placeholder="Enter box name">
+        <button onclick="submitChoice()" class="mt-2 bg-white/20 hover:bg-yellow-500 text-black border border-black py-2 px-6 rounded-full">Submit</button>
+    </div>
+
+    <!-- Bins for Categorization -->
+    <div id="bins" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 flex gap-5">
+        <div id="recyclable" class="border-2 border-green-600 p-3 bg-green-200">
+            <h3>♻️ Recyclable</h3>
+            <ul id="recyclable-list"></ul>
+        </div>
+        <div id="non-recyclable" class="border-2 border-red-600 p-3 bg-red-200">
+            <h3>🚯 Non-Recyclable</h3>
+            <ul id="non-recyclable-list"></ul>
+        </div>
+        <div id="compostable" class="border-2 border-yellow-600 p-3 bg-yellow-200">
+            <h3>🌿 Compostable</h3>
+            <ul id="compostable-list"></ul>
+        </div>
+    </div>
+
+    <!-- results -->
+    <div id="results" class="hidden absolute bottom-5 left-5 bg-white/20 border border-black rounded-full px-4 py-2">
+        <p id="correct-count">Correct Placements: 0</p>
+        <p id="incorrect-count">Incorrect Placements: 0</p>
+    </div>
+
+    <!-- level completion div -->
+    <div id="congos2" class="hidden flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 px-6 py-4 text-center rounded-lg w-[40rem] h-auto mt-10 text-white">
+        <div class="text-lg font-bold">
+            <p><span class="text-yellow-500">Congratulations</span>, you have completed <span class="text-yellow-500">"</span>Urban Waste Cleanup<span class="text-yellow-500">"</span> level.</p> 
+            <p>It's time for a cleaning<span class="underline pl-2 decoration-yellow-500 decoration-4">fact</span> now!</p>
+        </div>
+        <button id="nextButton" onclick="level_2_fact()" class="bg-white/20 border-white/70 w-24 ml-[30rem] text-white p-2 rounded-full hover:bg-yellow-600 transition duration-300 ease-in-out">Next</button>
+    </div>
+
+    <!-- fact div -->
+    <div id="level2fact" class="hidden flex-col fixed inset-0 flex justify-center p-6 bg-gray-900 text-white rounded-lg w-[40rem] h-[13rem] shadow-lg m-auto">
+        <!-- Heading -->
+        <h2 class="text-lg font-bold mb-2 text-yellow-500">Cleaning Fact:</h2>
+        <!-- Fact Text -->
+        <p class="text-md text-gray-200 mb-2">
+            Recycling just one aluminum can saves enough energy to power a TV for three hours. Imagine the impact of cleaning up and recycling daily! 🔄⚡ 
+        </p>
+        <!-- Button -->
+        <button onclick="level_2_quiz()" class="w-48 ml-[24rem] zindex-0 bg-white/20 border-white/70 text-white py-2 rounded-full hover:bg-yellow-600 transition duration-300 ease-in-out">
+            Ready for a Quiz?
+        </button>
+    </div>
+
+    <!-- quiz div -->
+    <div id="level2quiz" class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center p-6 bg-gray-900 text-white rounded-lg w-[36rem] h-[10.5rem] shadow-lg">
+        <div class="flex flex-row justify-between mb-4">
+            <h2 class="text-lg text-yellow-500 font-bold">Quiz: Planting Basics</h2>
+            <p class="bg-white/20 border-white/70 flex items-center rounded-full px-2 py-1 text-yellow-500 text-sm font-medium">Reward 10<i class="ml-2 fa-solid fa-coins"></i></p>
+        </div>
+        <p class="text-lg font-medium text-gray-200 mb-4">How many years does it take for a plastic bottle to decompose?</p>
+        
+        <!-- Options -->
+        <div class="flex flex-row justify-between px-14">
+            <button class="incorrect bg-white/30 text-white px-4 py-1 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out" onclick="level_2_quiz_lost()">a) 1000 years</button>
+            <button id="correct" class="bg-white/30 text-white px-4 py-1 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out" onclick="level_2_quiz_lost()">b) 700 years </button>
+            <button class="incorrect bg-white/30 text-white px-4 py-1 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out" onclick="level_2_quiz_won()">c) 450 years</button>
+        </div>
+    </div>
+
+    <!-- quiz won -->
+    <div id="quiz2cong" class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center p-6 bg-gray-900 text-white rounded-lg w-auto h-auto shadow-lg">
+        <div class="flex flex-row">
+            <h2 class="text-lg text-yellow-500 font-bold mr-2">Congratulations!</h2>
+            <p class="text-lg font-medium text-gray-200">You've won the Quiz of <span class="text-yellow-500 font-bold">"</span><span class="underline decoration-yellow-500 decoration-4">Urban Waste Cleanup</span><span class="text-yellow-500 font-bold">"</span> and earned 10<i class="ml-2 text-yellow-500 fa-solid fa-coins"></i></p>
+        </div>
+    </div>
+
+    <!-- quiz lost -->
+    <div id="quiz2boo" class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center p-4 bg-gray-900 text-white rounded-lg w-auto h-auto shadow-lg">
+        <div class="flex flex-col space-y-4 text-lg font-medium text-gray-200 ">
+            <p>Not quite this time, but every challenge is a chance to grow! 🌱💪</p>
+            <p>Though you couldn't earn 10<i class="mx-2 text-3xl text-yellow-500 fa-solid fa-coins"></i>but, but don’t give up! Keep going — every step in this game (and in real life) helps build a cleaner, greener world. Try again and make an impact! 🚀🌿</p>
+        </div>
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js" defer></script>
+    <script src="level1.js" defer></script>
+    <script src="level2.js"></script>
+</body>
+</html>

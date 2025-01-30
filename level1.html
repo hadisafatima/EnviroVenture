@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1: Tree Planting Basics - EnviroVenture</title>
+    <link rel="stylesheet" href="level1styles.css">
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Exit Button -->
+    <button onclick="window.location.href = 'levels.html'" class="fixed top-4 left-4 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Exit</button>
+    <h2 class="text-3xl font-bold text-red-700 fixed top-2 left-20 bg-opacity-50 p-2 rounded-lg">Level 1: Tree Planting Basics</h2>
+
+
+    <!--  progress bar -->
+    <div class="fixed top-4 right-4 flex items-center space-x-4">
+        <!-- Label -->
+        <p class="text-black text-sm font-medium">Level Progress Measure:</p>
+        <!-- Progress Bar -->
+        <div class="w-48 bg-gray-800 rounded-full overflow-hidden border border-gray-600">
+            <div id="progressBar" class="h-2 w-1/3 transition-all duration-300"></div>
+        </div>
+    </div>
+
+
+    <!-- coins bar -->
+    <div class="fixed top-10 right-4 flex items-center space-x-4">
+        <!-- Label -->
+        <p class="text-yellow-500 text-2xl font-medium"><i class="fa-solid fa-coins"></i></p>
+        <!-- Progress Bar -->
+        <div class="w-10 h-10 bg-gray-800 text-yellow-500 text-xl font-bold rounded-full overflow-hidden border border-gray-600">
+            <div id="coinsBar" class="h-2 w-1/3 flex mx-3 mt-1 justify-center">0</div>
+        </div>
+    </div>
+
+    <!-- level completion div -->
+    <div id="congos" class="hidden flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 px-6 py-4 text-center rounded-lg w-[40rem] h-auto mt-10 text-white">
+        <div class="text-lg font-bold">
+            <p><span class="text-yellow-500">Congratulations</span>, you have completed <span class="text-yellow-500">"</span>Tree Planting Basics<span class="text-yellow-500">"</span> level.</p> 
+            <p>It's time for a tree planting <span class="underline decoration-yellow-500 decoration-4">fact</span> now!</p>
+        </div>
+        <button id="nextButton" onclick="level_1_fact()" class="bg-white/20 border-white/70 w-24 ml-[30rem] text-white p-2 rounded-full  hover:bg-yellow-600 transition duration-300 ease-in-out">Next</button>
+    </div>
+
+
+    <!--  fact div -->
+    <div id="level1fact" class="hidden flex-col fixed inset-0 flex justify-center p-6 bg-gray-900 text-white rounded-lg w-[40rem] h-[13rem] shadow-lg m-auto">
+        <!-- Heading -->
+        <h2 class="text-lg font-bold mb-2 text-yellow-500">Planting Fact:</h2>
+        <!-- Fact Text -->
+        <p class="text-md text-gray-200 mb-2">
+            Trees help reduce greenhouse gases like carbon dioxide, which contribute to climate change. 
+        </p>
+        <!-- Button -->
+        <button onclick="level_1_quiz()" class="w-48 ml-[24rem] zindex-0 bg-white/20 border-white/70 text-white py-2 rounded-full hover:bg-yellow-600 transition duration-300 ease-in-out">
+            Ready for a Quiz?
+        </button>
+    </div>
+
+
+    <!-- quiz div -->
+    <div id="level1quiz" class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center px-6 bg-gray-900 text-white rounded-lg w-[32rem] h-[13rem] shadow-lg">
+        <div class="flex flex-row justify-between mb-4">
+            <h2 class="text-lg text-yellow-500 font-bold">Quiz: Planting Basics</h2>
+            <p class="bg-white/20 border-white/70 flex items-center rounded-full px-2 py-1 text-yellow-500 text-sm font-medium">Reward 10<i class="ml-2 fa-solid fa-coins"></i></p>
+        </div>
+        <p class="text-lg font-medium text-gray-200 mb-4">What is the minimum distance required between two trees to ensure healthy growth?</p>
+        
+        <!-- Options -->
+        <div class="flex flex-row justify-between px-14">
+            <button class="incorrect bg-white/30 text-white px-4 py-1 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out" onclick="level_1_quiz_lost()">a) 1 meter</button>
+            <button id="correct" class="bg-white/30 text-white px-4 py-1 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out" onclick="level_1_quiz_won()">b) 3 meters </button>
+            <button class="incorrect bg-white/30 text-white px-4 py-1 rounded-lg hover:bg-yellow-500 transition duration-300 ease-in-out" onclick="level_1_quiz_lost()">c) 5 meters</button>
+        </div>
+    </div>
+    
+
+    <!-- quiz won -->
+    <div id="quiz1cong" class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center p-6 bg-gray-900 text-white rounded-lg w-auto h-auto shadow-lg">
+        <div class="flex flex-row">
+            <h2 class="text-lg text-yellow-500 font-bold mr-2">Congratulations!</h2>
+            <p class="text-lg font-medium text-gray-200">You've won the Quiz of <span class="text-yellow-500 font-bold">"</span><span class="underline decoration-yellow-500 decoration-4">Planting Basics</span><span class="text-yellow-500 font-bold">"</span> and earned 10<i class="ml-2 text-yellow-500 fa-solid fa-coins"></i></p>
+        </div>
+    </div>
+
+    <!-- quiz lost -->
+    <div id="quiz1boo" class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-col justify-center p-4 bg-gray-900 text-white rounded-lg w-auto h-auto shadow-lg">
+        <div class="flex flex-col space-y-4 text-lg font-medium text-gray-200 ">
+            <p>You may have missed this one, but every wrong answer is a step toward becoming an Eco Hero! 🌍✨</p>
+            <p>Though you couldn't earn 10<i class="mx-2 text-3xl text-yellow-500 fa-solid fa-coins"></i>but, Keep going! Your actions in the game and in the real-world make a difference. Try again and turn knowledge into action! 🚀🌿</p>
+        </div>
+
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js" defer></script>
+    <script src="level1.js" defer></script>
+    <script src="https://kit.fontawesome.com/334ac14b63.js" crossorigin="anonymous"></script>
+</body>
+</html>
